@@ -137,3 +137,18 @@ STATIC_ROOT = os.path.join(BASE_DIR, "static/")
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Celery settings
+
+#CELERY_BROKER_URL = 'redis://dev-topaz-redis-001.wzdkbs.0001.apne1.cache.amazonaws.com:6379/0'
+
+#: Only add pickle to this list if your broker is secured
+#: from unwanted access (see userguide/security.html)
+#CELERY_ACCEPT_CONTENT = ['json']
+#CELERY_RESULT_BACKEND = 'redis'
+#CELERY_TASK_SERIALIZER = 'json'
+
+#CELERY_TIMEZONE = "Asia/Tokyo"
+#CELERY_TASK_TRACK_STARTED = True
+#CELERY_TASK_TIME_LIMIT = 30 * 60
+CELERY_BROKER_URL = "redis://dev-topaz-redis-001.wzdkbs.0001.apne1.cache.amazonaws.com:6379/0"
