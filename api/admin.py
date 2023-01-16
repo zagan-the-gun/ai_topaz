@@ -16,11 +16,11 @@ class ProfileAdmin(admin.ModelAdmin):
 @admin.register(Art)
 class ArtAdmin(admin.ModelAdmin):
     #list_editable   = ['application']
-    list_filter     = ['file_name', 'user', 'prompt', 'seed', 'scale', 'ddim_steps', 'n_iter', 'created_at', 'updated_at',]
+    list_filter     = ['file_name', 'user', 'prompt', 'seed', 'scale', 'ddim_steps', 'n_iter', 'is_generated', 'created_at', 'updated_at',]
     search_fields   = ['file_name', 'user__username', 'prompt',]
-    list_display    = ['file_name', 'user', 'prompt', 'seed', 'scale', 'ddim_steps', 'n_iter', 'created_at', 'updated_at']
-    readonly_fields = ['file_name', 'user', 'created_at', 'updated_at']
-    fields          = ['file_name', 'user', 'created_at', 'updated_at']
+    list_display    = ['file_name', 'user', 'prompt', 'seed', 'scale', 'ddim_steps', 'n_iter', 'is_generated', 'created_at', 'updated_at']
+    readonly_fields = ['file_name', 'user', 'prompt', 'seed', 'scale', 'ddim_steps', 'n_iter', 'is_generated', 'created_at', 'updated_at']
+    fields          = ['file_name', 'user', 'prompt', 'seed', 'scale', 'ddim_steps', 'n_iter', 'is_generated', 'created_at', 'updated_at']
     #登録時にオートコンプリートで探せる
     #autocomplete_fields = ['file_name', 'prompt',]
 

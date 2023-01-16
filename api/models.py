@@ -40,10 +40,10 @@ class Art(models.Model):
             default=uuid.uuid4,
             editable=False
             )
-    user = models.OneToOneField(
+    user = models.ForeignKey(
              settings.AUTH_USER_MODEL,
-             on_delete=models.CASCADE,
-             related_name='%(app_label)s_%(class)s_user',
+             on_delete = models.DO_NOTHING,
+             related_name = '%(app_label)s_%(class)s_user',
            )
     prompt = models.CharField(
             verbose_name='prompt',
@@ -65,6 +65,10 @@ class Art(models.Model):
                 verbose_name='n_iter',
                 default=1,
               )
+    is_generated = models.BooleanField(
+            verbose_name='作成済',
+            default=False,
+            )
     created_at = models.DateTimeField(
                    verbose_name='作成日時',
                    auto_now_add=True,
