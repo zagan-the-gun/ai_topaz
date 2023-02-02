@@ -29,8 +29,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
-#CSRF_TRUSTED_ORIGINS = ['*']
-CSRF_TRUSTED_ORIGINS = ['https://sd.tokyo-tsushin.com','https://*.127.0.0.1']
+CSRF_TRUSTED_ORIGINS = ['http://*', 'https://*']
+#CSRF_TRUSTED_ORIGINS = ['HTTP_X_FORWARDED_PROTO', 'https']
+#CSRF_TRUSTED_ORIGINS = ['https://sd.tokyo-tsushin.com','https://*.127.0.0.1']
 
 
 # Application definition
@@ -43,6 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'api.apps.ApiConfig',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -53,7 +55,15 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
 ]
+
+if os.environ['DJANGO_ENV'] == 'dev':
+    CORS_ALLOW_ALL_ORIGINS = True
+else:
+    CORS_ALLOW_ALL_ORIGINS = False
+CORS_ALLOW_ALL_ORIGINS = True
 
 ROOT_URLCONF = 'ai_topaz.urls'
 

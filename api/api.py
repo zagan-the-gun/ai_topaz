@@ -38,6 +38,16 @@ def txt2img(request, art: ArtIn):
     print(f'{art.file_name}')
     return JsonResponse({"filename": art.file_name})
 
+@api.get("/img/{file_name}")
+async def get_img(file_name, response: Response):
+    print(file_name)
+    is_file = os.path.isfile(f"/home/ishizuka/stable-diffusion/outputs/txt2img-samples/{file_name}.png")
+    if is_file:
+        return FileResponse(f"/home/ishizuka/stable-diffusion/outputs/txt2img-samples/{file_name}.png")
+    else:
+        response.status_code = status.HTTP_202_ACCEPTED
+        return
+
 @api.get("/get_test")
 def get_test(request):
     return "get test!"
