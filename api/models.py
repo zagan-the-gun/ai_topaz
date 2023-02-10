@@ -47,12 +47,17 @@ class Art(models.Model):
            )
     prompt = models.CharField(
             verbose_name='prompt',
-            max_length=400,
+            max_length=1000,
             )
-    seed = models.PositiveIntegerField(
+    seed = models.CharField(
             verbose_name='seed',
-            default=42,
+            max_length=10,
+            default='3972771385',
             )
+    n_iter = models.PositiveIntegerField(
+                verbose_name='n_iter',
+                default=1,
+              )
     scale = models.FloatField(
             verbose_name='scale',
             default=0.7,
@@ -60,10 +65,6 @@ class Art(models.Model):
     ddim_steps = models.PositiveIntegerField(
                 verbose_name='ddim_steps',
                 default=50,
-              )
-    n_iter = models.PositiveIntegerField(
-                verbose_name='n_iter',
-                default=1,
               )
     is_generated = models.BooleanField(
             verbose_name='作成済',

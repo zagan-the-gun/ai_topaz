@@ -15,9 +15,9 @@ api = NinjaAPI()
 class T2I(BaseModel):
     prompt: Union[str, None] = "Daimyo's procession of 20cm in length that only I can see."
     seed: Union[int, None] = 42
+    n_iter: Union[int, None] = 1
     scale: Union[float, None] = 0.7
     ddim_steps: Union[int, None] = 50
-    n_iter: Union[int, None] = 1
 
 @api.post("/txt2img")
 def txt2img(request, art: ArtIn):
@@ -29,7 +29,11 @@ def txt2img(request, art: ArtIn):
 
     user = User.objects.get(pk=1)
     #art = Art.objects.create(user=user, prompt='', seed='', scale='', ddim_steps='', n_iter='')
-    art = Art.objects.create(user=user, prompt=art.prompt, seed=art.seed, scale=art.scale, ddim_steps=art.ddim_steps, n_iter=art.n_iter)
+    print('DEAD BEEF n_iter')
+    print(art.n_iter)
+    print(type(art.n_iter))
+    #art = Art.objects.create(user=user, prompt=art.prompt, seed=art.seed, n_iter=art.n_iter, scale=art.scale, ddim_steps=art.ddim_steps, )
+    art = Art.objects.create(user=user, prompt=art.prompt, seed=39, )
 
     txt2img_task.delay(art.id)
     # 再起動面倒なので開発中は直接動かす
@@ -39,7 +43,7 @@ def txt2img(request, art: ArtIn):
     return JsonResponse({"filename": art.file_name})
 
 @api.get("/img/{file_name}")
-async def get_img(file_name, response: Response):
+async def get_img(request, file_name):
     print(file_name)
     is_file = os.path.isfile(f"/home/ishizuka/stable-diffusion/outputs/txt2img-samples/{file_name}.png")
     if is_file:
