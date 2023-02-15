@@ -26,7 +26,7 @@ def txt2img_task(art_id):
         print(f'Artレコードが無いよ！')
 
     # バリデーションしっかりしないとヤバい
-    subprocess.run(f'/home/ishizuka/dev-txt2img.sh {art.file_name} "{art.prompt}" {art.seed} {art.n_iter} {art.scale} {art.ddim_steps}', shell=True)
+    subprocess.run(f'engines/dev-stable-diffusion/dev-txt2img.sh {art.file_name} "{art.prompt}" {art.seed} {art.n_iter} {art.scale} {art.ddim_steps}', shell=True)
 
     art.is_generated = True
     art.save()
